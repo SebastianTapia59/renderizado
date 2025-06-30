@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width">
+
+ <title>Render en el servidor</title>
+
+ <script type="module" src="lib/js/consumeJson.js"></script>
+ <script type="module" src="lib/js/muestraObjeto.js"></script>
+ <script type="module" src="lib/js/muestraError.js"></script>
+ <style>
+  .navbar{
+    position: absolute;
+    top: 10px;
+    right: 20px;
+  }
+
+  .navbar a{
+    color: #000000;
+    margin-left: 20px;
+    padding: 14px 20px;
+    text-decoration: none;
+  }
+
+  .navbar a:hover{
+    background-color: #575757;
+  }
+ </style>
+</head>
+
+<body onload="consumeJson('srv/render.php')
+  .then(respuesta => muestraObjeto(document, respuesta.body))
+  .catch(muestraError)">
+
+ <div class="navbar">
+    <a href="index.html">Formulario</a>
+    <a href="render.html">Lista</a>
+  </div> 
+
+ <h1>Render en el servidor</h1>
+
+ <dl id="lista">
+  <dt>Cargando…</dt>
+  <dd><progress max="100">Cargando…</progress></dd>
+ </dl>
+
+</body>
+
+</html>

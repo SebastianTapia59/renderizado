@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width">
+
+ <title>Servicio que procesa un formulario</title>
+ <style>
+  .navbar{
+    position: absolute;
+    top: 10px;
+    right: 20px;
+  }
+
+  .navbar a{
+    color: #000000;
+    margin-left: 20px;
+    padding: 14px 20px;
+    text-decoration: none;
+  }
+
+  .navbar a:hover{
+    background-color: #575757;
+  }
+ </style>
+</head>
+
+<body>
+
+  <div class="navbar">
+    <a href="index.html">Formulario</a>
+    <a href="render.html">Lista</a>
+  </div>
+
+ <h1>Servicio que procesa un formulario</h1>
+
+ <form onsubmit="procesaForm(event) ">
+
+  <!--<p>
+   <label>
+    Saludo:-->
+    <!-- Como este input tiene name="saludo", su valor se recupera en el
+     servidor con leeTexto("saludo") -->
+  <!--<input name="saludo">
+   </label>
+  </p>-->
+
+  <p>
+   <h2>Selecciona el nombre de un integrante del equipo para leer su chiste</h2><br>
+   <label>
+    Nombre:
+    <!-- Como este input tiene name="nombre", su valor se recupera en el
+     servidor con leeTexto("nombre") -->
+    <select name="nombre">
+      <option value="Roberto">Roberto</option>
+      <option value="Jack">Jack</option>
+      <option value="Sebastian">Sebastian</option>
+      <option value="Miguel">Miguel</option>
+      <option value="Nery">Nery</option>
+      <option value="Gonzalo">Gonzalo</option>
+      <option value="Edson">Edson</option>
+    </select> 
+    <!--<input name="nombre">-->
+   </label>
+  </p>
+
+  <p><button type="submit">Procesa</button></p>
+
+ </form>
+
+ <script type="module">
+
+  import { exportaAHtml } from "./lib/js/exportaAHtml.js"
+  import { muestraError } from "./lib/js/muestraError.js"
+  import { submitForm } from "./lib/js/submitForm.js"
+
+  /**
+   * @param {Event} event
+   */
+  async function procesaForm(event) {
+   try {
+    const respuesta =
+     await submitForm(
+      "srv/procesa.php", event)
+    alert(respuesta.body)
+   } catch (error) {
+    muestraError(error)
+   }
+  }
+  exportaAHtml(procesaForm)
+
+ </script>
+
+</body>
+
+</html>
